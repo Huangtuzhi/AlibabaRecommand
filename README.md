@@ -6,3 +6,20 @@
 
 ##目录结构
 
+```
+├── LICENSE         #许可证
+├── README.md       #使用说明
+├──                 #
+├── test.py         #测试
+├── text            #存放测试所需要的文本
+│   ├── 01.txt
+│   ├── 02.txt
+│   ├── 03.txt
+│   ├── 04.txt
+│   └── 05.txt
+└── main     #!main
+    ├── __init__.py
+    ├── Segmentation.py
+    ├── TextRank4Keyword.py
+    └── TextRank4Sentence.py
+```
