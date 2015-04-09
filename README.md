@@ -17,7 +17,7 @@
 └── add_index_31day.sql #为表建立索引
 #数据导入
 ├── datatoDB.sql      	#大赛csv格式原始数据导入基本表
-└──FeaturetoDB.sql   	#feature.txt导入对应表
+└── FeaturetoDB.sql   	#feature.txt导入对应表
 #main
 ├── __init__.py
 ├── TrainModel.py
