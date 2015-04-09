@@ -35,11 +35,22 @@
 ├── feature_neg.txt       #feature.txt中所有负例
 ├── feature_p.npy
 ├── TrainSet.npy          #训练集
-└── TestSet.npy           #测试集
+├── TestSet.npy           #测试集
+└── 31day_data_features.txt #31天所有数据的n维特征
 
 ```
 
 ##原理
+题目给了31天的数据，我们选择第30天作为分割点。用前30天的数据提取n维特征(每个[user_id,item_id]对可以提取一行特征)，用第31天的真实数据去标记每行特征。
 
+举个例子：某个[user_id，item_id]对[9909811,266982489]在前30天出现，如果在第31天它也出现了且behavior_type为购买，则标记这一行的label为1，否则为0。
 
-##结果
+这样形成了很多行的特征数据，我们把数据进行[Logistic Regression训练](http://scikit-learn.org/stable/modules/linear_model.html#logistic-regression)，得到一个二分类的模型，这样模型就训练好了。
+
+接下来就是预测，预测的东西就是上面的label，也即模型的输出。label为1表示我们认为用户会购买。那么模型的输入是什么呢？模型的输入就是31天所有数据的特征。
+
+```
+1th~29th————> 30th的label
+1th~30th————> 31th的label
+```
+因为30th的label数据是已知的，所以可以利用它对训练出来的模型进行评估。而31th的label就是输出结果了。
