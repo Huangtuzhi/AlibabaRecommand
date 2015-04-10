@@ -22,8 +22,7 @@
 ├── __init__.py
 ├── TrainModel.py
 ├── ObtainPredict.py
-├── GetFeature31day.py
-└── x.py
+└── GetFeature31day.py
 #数据 
 ├── feature.txt           #符合某个标准的记录(user_id,item_id,look,store,cart，buy）
 ├── data_features.txt     #feature.txt中记录的n维特征
@@ -37,6 +36,9 @@
 ├── TrainSet.npy          #训练集
 ├── TestSet.npy           #测试集
 └── 31day_data_features.txt #31天所有数据的n维特征
+#结果
+├── predict_all_pairs.txt #得到所有预测的userid itemid对
+└── filter_pairs.txt      #用train_item过滤的userid itemid对
 
 ```
 
