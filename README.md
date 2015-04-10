@@ -20,9 +20,9 @@
 └── FeaturetoDB.sql       #feature.txt导入对应表
 #main
 ├── __init__.py
-├── TrainModel.py
-├── ObtainPredict.py
-└── GetFeature31day.py
+├── TrainModel.py         #特征提取
+├── ObtainPredict.py      #生成模型
+└── GetFeature31day.py    #进行预测
 #数据 
 ├── feature.txt           #符合某个标准的记录(user_id,item_id,look,store,cart，buy）
 ├── data_features.txt     #feature.txt中记录的n维特征
