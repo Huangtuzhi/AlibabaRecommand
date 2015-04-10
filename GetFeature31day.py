@@ -163,7 +163,7 @@ class TrainModel(object):
         train_data = train_set[:,0:-1] #去除label后的特征数据
         train_data_label = train_set[:,-1] #label
 
-        best_th = 0.007 #前面计算出来的
+        best_th = 0.013 #前面计算出来的
         PE = PredictEmption()
         predict_labels, predict_proba = PE.TrainAndPredict(train_data, train_data_label, predict_data)
         index = np.array(range(0,len(predict_proba)))
@@ -211,11 +211,38 @@ class TrainModel(object):
                             fop.write('\n')
                 fop.close()
                 return 0
+    #结果去重复
+    def RemoveDuplicate(self):
+        fop1 = open('filter_pairs.txt', 'r')
+        fop2 = open('remove_pairs.txt', 'w+')
+
+        lines = []
+        #filter_pairs去重
+        while True:
+            myString = fop1.readline()
+            if myString:
+                myList = map(string.strip, myString.split(','))#去除回车
+                lines.append(myList)
+
+            else:
+                lines_remove = []
+                for it in lines:
+                    if it not in lines_remove:
+                        lines_remove.append(it)
+
+                for it in lines_remove:
+                    fop2.write('%d,%d' % (int(it[0]),int(it[1])))
+                    fop2.write('\n')
+                fop1.close()
+                fop2.close()
+                return 0
+
 
 if __name__ == '__main__':
     model = TrainModel()
     #model.MergeData()
     #model.MergeFeatures()##这个很耗时间
     #model.Transform2Matrix()
-    #model.PerformPredict()
+    model.PerformPredict()
     model.FilterByItems()
+    model.RemoveDuplicate()
