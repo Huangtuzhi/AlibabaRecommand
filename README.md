@@ -76,6 +76,35 @@ s取值范围是整个实数域,f(x)单调递增。而逻辑斯蒂回归用
 
 来逼近上面的目标函数。其中,x为要预测的样本,w为训练出的模型向量(w和x的维度相同)。h是算得的样本概率。
 
+##使用
+TrainModel类用来生成每个样本的特征和对应的label
+```
+    model = TrainModel()
+    model.DivideByTime("2014-12-18 00:00:00") #按时间点分割
+    model.MergeData() 
+    model.SimplifyTrainUser()   #按规则滤除一部分特征
+    model.MergeFeatures()       #合并特征
+    model.GenLabels()           #产生样本对应label
+```
+PredictEmption类用来生成模型和选取最优阈值
+```
+    PE =  PredictEmption()
+    PE.DivideSet()          #把正负样本分开
+    PE.GenTrainTestSet()    #生成训练集和测试集
+    PE.TestPredict()        #打印模型预测的准确率和召回率
+```
+GetFeature31day.py用来提取31天的特征样本和进行预测
+```
+    model = TrainModel()
+    model.MergeData()
+    model.MergeFeatures()    #合并特征
+    model.Transform2Matrix() #把文本转化为便于处理的矩阵
+    model.PerformPredict()   #进行预测
+    model.FilterByItems()    #用物品进行过滤
+    model.RemoveDuplicate()  #去除重复
+```
+
+
 ##说明
 这只是一个流程和预测的框架，特征工程很多地方还需要改善。
 
