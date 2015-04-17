@@ -1,10 +1,7 @@
-# AlibabaRecommand
- Alibaba 2015 mobile recommending algorithm competition.
- 
 ## [比赛介绍](http://tianchi.aliyun.com/competition/introduction.htm?spm=5176.100066.333.2.YI657c&raceId=1)
 通过对用户在移动终端上一个月的行为数据进行分析，为后一天的用户购买行为作出预测，进行推荐。
 
-##说明
+#声明
 这只是一个流程和预测的框架，特征工程很多地方还需要改善。
 
 此项目仅作为参考，不可用来参加正式比赛（部分核心代码已经删除)。
