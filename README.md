@@ -21,7 +21,7 @@
 ├── add_table_31day.sql   #建立存储31天数据的表，结构同上
 └── add_index_31day.sql   #为表建立索引
 #数据导入
-├── datatoDB.sql          #大赛csv格式原始数据导入基本表
+├── datatoDB.sql          #csv格式原始数据导入基本表
 └── FeaturetoDB.sql       #feature.txt导入对应表
 #main
 ├── __init__.py
@@ -107,11 +107,5 @@ GetFeature31day.py用来提取31天的特征样本和进行预测
     model.PerformPredict()   #进行预测
     model.FilterByItems()    #用物品进行过滤
     model.RemoveDuplicate()  #去除重复
-```
-
-##版本
-```
-├── master    #版本一，采取11维特征
-└── branch1   #版本二，采取19维特征
 ```
 
