@@ -93,7 +93,7 @@ TrainModel类用来生成每个样本的特征和对应的label
 ```
 PredictEmption类用来生成模型和选取最优阈值
 ```
-    PE =  PredictEmption()
+    PE = PredictEmption()
     PE.DivideSet()          #把正负样本分开
     PE.GenTrainTestSet()    #生成训练集和测试集
     PE.TestPredict()        #打印模型预测的准确率和召回率
