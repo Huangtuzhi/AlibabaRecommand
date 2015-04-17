@@ -35,25 +35,9 @@ merge_buy_sql = '''INSERT INTO user_buy
 SELECT user_id, item_id, group_concat(daydiff) as buy
 FROM train_user_before WHERE behavior_type=4 GROUP BY user_id, item_id '''
 
-#四个表合并太慢，先建立索引。这里应该用outer join，但mysql没有。后面再补充。
+#四个表合并太慢，先建立索引。这里应该用outer join，但mysql没有。（此部分需要自己补充）
 merge_all_behavoir = '''INSERT INTO user_features
-(user_id, item_id, look, store, cart, buy)
-SELECT user_look.user_id, user_look.item_id,
-user_look.look, user_store.store, user_cart.cart, user_buy.buy
-FROM user_look
-LEFT join  user_store ON user_look.user_id = user_store.user_id AND
-                        user_look.item_id = user_store.item_id
-LEFT join  user_cart  ON user_look.user_id = user_cart.user_id AND
-                        user_look.item_id = user_cart.item_id
-LEFT join  user_buy   ON user_look.user_id = user_buy.user_id AND
-                        user_look.item_id = user_buy.item_id'''
-
-unique_user_sql = '''INSERT INTO unique_user
-(user_id, item_id) SELECT user_id, item_id
-FROM train_user_before GROUP BY user_id, item_id '''
-
-
-DELETE_INDEX = 0
+(user_id, item_id, look, store, cart, buy)'''
 
 class TrainModel(object):
     def __init__(self):
@@ -76,7 +60,6 @@ class TrainModel(object):
 
     def MergeData(self):
         try:
-            '''
             self.cursor.execute(merge_look_sql)
             self.db.commit()
             self.cursor.execute(merge_store_sql)
@@ -89,7 +72,6 @@ class TrainModel(object):
             self.db.commit()
             self.cursor.execute(unique_user_sql)
             self.db.commit()
-            '''
         except MySQLdb.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             self.db.rollback()
@@ -225,7 +207,6 @@ if __name__ == '__main__':
     #model.DivideByTime("2014-12-18 00:00:00")
     #model.MergeData()
     #model.SimplifyTrainUser()
-    #print DELETE_INDEX
     #print model.ExtractMonthlyBehavior(19095, 14148321)
     #print model.ExtractLastdaysBehavior(19095, 15088134)
     #print model.ExtractLRUsed(19095, 15088134)
