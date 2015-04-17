@@ -34,18 +34,9 @@ merge_buy_sql = '''INSERT INTO 31day_user_buy
 SELECT user_id, item_id, group_concat(daydiff) as buy
 FROM 31day_train_user WHERE behavior_type=4 GROUP BY user_id, item_id '''
 
-#四个表合并太慢，先建立索引。这里应该用outer join，但mysql没有。后面再补充。
+#四个表合并太慢，先建立索引。这里应该用outer join。
 merge_all_behavoir = '''INSERT INTO 31day_user_features
-(user_id, item_id, look, store, cart, buy)
-SELECT 31day_user_look.user_id, 31day_user_look.item_id,
-31day_user_look.look, 31day_user_store.store, 31day_user_cart.cart, 31day_user_buy.buy
-FROM 31day_user_look
-LEFT join  31day_user_store ON 31day_user_look.user_id = 31day_user_store.user_id AND
-                               31day_user_look.item_id = 31day_user_store.item_id
-LEFT join  31day_user_cart  ON 31day_user_look.user_id = 31day_user_cart.user_id AND
-                               31day_user_look.item_id = 31day_user_cart.item_id
-LEFT join  31day_user_buy   ON 31day_user_look.user_id = 31day_user_buy.user_id AND
-                               31day_user_look.item_id = 31day_user_buy.item_id'''
+(user_id, item_id, look, store, cart, buy)'''
 
 class TrainModel(object):
     def __init__(self):
