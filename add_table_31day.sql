@@ -41,12 +41,3 @@ store VARCHAR(255) ,
 cart VARCHAR(255) ,
 buy VARCHAR(255)
 );
-
-CREATE TABLE IF NOT EXISTS 31day_pure_data(
-user_id INT NOT NULL,
-item_id INT NOT NULL,
-look VARCHAR(255) ,
-store VARCHAR(255) ,
-cart VARCHAR(255) ,
-buy VARCHAR(255)
-);

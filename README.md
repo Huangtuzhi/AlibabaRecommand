@@ -1,3 +1,4 @@
+
 ## [比赛介绍](http://tianchi.aliyun.com/competition/introduction.htm?spm=5176.100066.333.2.YI657c&raceId=1)
 通过对用户在移动终端上一个月的行为数据进行分析，为后一天的用户购买行为作出预测，进行推荐。
 
@@ -17,11 +18,12 @@
 └── FeaturetoDB.sql       #feature.txt导入对应表
 #main
 ├── __init__.py
+├── Utility.py            #工具类
 ├── TrainModel.py         #特征提取
 ├── ObtainPredict.py      #生成模型
 └── GetFeature31day.py    #进行预测
 #数据 
-├── feature.txt           #符合某个标准的记录(user_id,item_id,look,store,cart，buy）
+├── feature.txt           #符合某个筛选标准的样本
 ├── data_features.txt     #feature.txt中记录的n维特征
 ├── data_features.npy     #转为矩阵格式(numpy库)，下同
 ├── data_labels.txt       #feature.txt中记录的label(1/0表示购买/未购买)
@@ -71,14 +73,14 @@ s取值范围是整个实数域,f(x)单调递增。而逻辑斯蒂回归用
 
 	h(x) = 1 / (1 + exp(-wx))
 
-来逼近上面的目标函数。其中,x为要预测的样本,w为训练出的模型向量(w和x的维度相同)。h是算得的样本概率。
+来逼近上面的目标函数。其中,x为要预测的样本,w为训练出的模型向量(w和x的维度相同),h是算得的样本概率。
 
 ##使用
 TrainModel类用来生成每个样本的特征和对应的label
 ```
     model = TrainModel()
     model.DivideByTime("2014-12-18 00:00:00") #按时间点分割
-    model.MergeData() 
+    model.MergeData()           #将特征组合起来
     model.SimplifyTrainUser()   #按规则滤除一部分特征
     model.MergeFeatures()       #合并特征
     model.GenLabels()           #产生样本对应label
