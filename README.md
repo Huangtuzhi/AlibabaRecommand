@@ -1,5 +1,5 @@
 
-## [比赛介绍](http://tianchi.aliyun.com/competition/introduction.htm?spm=5176.100066.333.2.YI657c&raceId=1)
+## [介绍](http://tianchi.aliyun.com/competition/introduction.htm?spm=5176.100066.333.2.YI657c&raceId=1)
 通过对用户在移动终端上一个月的行为数据进行分析，为后一天的用户购买行为作出预测，进行推荐。
 
 ##目录结构
@@ -41,6 +41,34 @@
 
 ```
 
+##使用
+TrainModel类用来生成每个样本的特征和对应的label
+```
+    model = TrainModel()
+    model.DivideByTime("2014-12-18 00:00:00") #按时间点分割
+    model.MergeData()           #将特征组合起来
+    model.SimplifyTrainUser()   #按规则滤除一部分特征
+    model.MergeFeatures()       #合并特征
+    model.GenLabels()           #产生样本对应label
+```
+PredictEmption类用来生成模型和选取最优阈值
+```
+    PE = PredictEmption()
+    PE.DivideSet()          #把正负样本分开
+    PE.GenTrainTestSet()    #生成训练集和测试集
+    PE.TestPredict()        #打印模型预测的准确率和召回率
+```
+GetFeature31day.py用来提取31天的特征样本和进行预测
+```
+    model = TrainModel()
+    model.MergeData()
+    model.MergeFeatures()    #合并特征
+    model.Transform2Matrix() #把文本转化为便于处理的矩阵
+    model.PerformPredict()   #进行预测
+    model.FilterByItems()    #用物品进行过滤
+    model.RemoveDuplicate()  #去除重复
+```
+
 ##原理
 题目给了31天的数据，我们选择第30天作为分割点。用前30天的数据提取n维特征(每个[user_id,item_id]对可以提取一行特征)，用第31天的真实数据去标记每行特征。
 
@@ -75,33 +103,6 @@ s取值范围是整个实数域,f(x)单调递增。而逻辑斯蒂回归用
 
 来逼近上面的目标函数。其中,x为要预测的样本,w为训练出的模型向量(w和x的维度相同),h是算得的样本概率。
 
-##使用
-TrainModel类用来生成每个样本的特征和对应的label
-```
-    model = TrainModel()
-    model.DivideByTime("2014-12-18 00:00:00") #按时间点分割
-    model.MergeData()           #将特征组合起来
-    model.SimplifyTrainUser()   #按规则滤除一部分特征
-    model.MergeFeatures()       #合并特征
-    model.GenLabels()           #产生样本对应label
-```
-PredictEmption类用来生成模型和选取最优阈值
-```
-    PE = PredictEmption()
-    PE.DivideSet()          #把正负样本分开
-    PE.GenTrainTestSet()    #生成训练集和测试集
-    PE.TestPredict()        #打印模型预测的准确率和召回率
-```
-GetFeature31day.py用来提取31天的特征样本和进行预测
-```
-    model = TrainModel()
-    model.MergeData()
-    model.MergeFeatures()    #合并特征
-    model.Transform2Matrix() #把文本转化为便于处理的矩阵
-    model.PerformPredict()   #进行预测
-    model.FilterByItems()    #用物品进行过滤
-    model.RemoveDuplicate()  #去除重复
-```
 
 #说明
 本repo只是一个流程和预测的框架，特征工程很多地方还需要改善。
